@@ -5,10 +5,6 @@ from core.setting_local import *
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,11 +51,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': NAME_DB,
+        'USER': USER_DB,
+        'PASSWORD': PASSWORD_DB,
+        'HOST': HOST_DB,
+        'PORT': PORT_DB,
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
