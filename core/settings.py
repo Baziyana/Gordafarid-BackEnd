@@ -15,6 +15,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd Party
+    'ckeditor',
+
     # My Apps
     'account.apps.AccountConfig',
 ]
@@ -58,7 +61,7 @@ DATABASES = {
         'NAME': NAME_DB,
         'USER': USER_DB,
         'PASSWORD': PASSWORD_DB,
-        'HOST': HOST_DB,
+        'HOST':HOST_DB,
         'PORT': PORT_DB,
     }
 }
