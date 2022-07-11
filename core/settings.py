@@ -1,9 +1,17 @@
 import os
+import environ
 from pathlib import Path
-from core.setting_local import *
+
+# config environ
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+DEBUG = env('DEBUG')
 
 # Application definition
 
@@ -17,6 +25,7 @@ INSTALLED_APPS = [
 
     # 3rd Party
     'ckeditor',
+    'ckeditor_uploader',
 
     # My Apps
     'account.apps.AccountConfig',
@@ -58,11 +67,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': NAME_DB,
-        'USER': USER_DB,
-        'PASSWORD': PASSWORD_DB,
-        'HOST':HOST_DB,
-        'PORT': PORT_DB,
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST': env("DATABASE_HOST"),
+        'PORT': env("DATABASE_PORT"),
     }
 }
 # Password validation
@@ -114,3 +123,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Model User
 AUTH_USER_MODEL = 'account.CustomUser'
+
+# Ckeditor Config
+CKEDITOR_UPLOAD_PATH = 'uploads/'

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
-from ckeditor import fields
+from ckeditor_uploader import fields
 from django.core.validators import RegexValidator
 
 
@@ -45,13 +45,12 @@ class CustomUser(AbstractUser):
         verbose_name_plural = 'کاربران'
 
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="شماره تلفن نامعتبر است .")
-
-    username = models.CharField(max_length=350, blank=True, null=True, verbose_name='نام کاربری')
     full_name = models.CharField(max_length=350, blank=True, null=True, verbose_name='نام و نام خانوادگی')
     email = models.EmailField(unique=True, verbose_name='پست الکترونیکی')
     phone_number = models.CharField(unique=True, max_length=11, validators=[phone_regex], verbose_name='شماره موبایل')
     avatar = models.ImageField(upload_to='uploads/Users/avatars', blank=True, null=True, verbose_name='عکس پروفایل')
-    description = fields.RichTextField(blank=True, null=True, verbose_name="درباره من")  # from ckeditor
+    description = fields.RichTextUploadingField(blank=True, null=True,
+                                                verbose_name="درباره من")  # from ckeditor #todo:RTL change
 
     objects = CustomUserManager()
 
