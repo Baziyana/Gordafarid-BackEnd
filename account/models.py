@@ -50,13 +50,14 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(unique=True, max_length=11, validators=[phone_regex], verbose_name='شماره موبایل')
     avatar = models.ImageField(upload_to='uploads/Users/avatars', blank=True, null=True, verbose_name='عکس پروفایل')
     description = fields.RichTextUploadingField(blank=True, null=True,
-                                                verbose_name="درباره من")  # from ckeditor #todo:RTL change
+                                                verbose_name="درباره من")
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["username", 'full_name', "phone_number"]
 
+    @property
     def get_full_name(self):
         """ return  full name user """
         return self.full_name
