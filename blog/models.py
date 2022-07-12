@@ -18,6 +18,14 @@ class BaseModel(models.Model):
     created_at_gregory = jmodels.jDateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
     updated_at_gregory = jmodels.jDateTimeField(auto_now=True, verbose_name='تاریخ بروزرسانی')
 
+    def get_created_at(self):
+        return self.created_at.strftime('%H:%M - %Y/%m/%d')
+    get_created_at.short_description = 'زمان ایجاد'
+
+    def get_updated_at(self):
+        return self.created_at.strftime('%H:%M - %Y/%m/%d')
+    get_updated_at.short_description = 'زمان بروزرسانی'
+
 
 class Post(BaseModel):
     class StatusChoices(models.TextChoices):
