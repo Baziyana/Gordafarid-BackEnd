@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     # 3rd Party
     'ckeditor',
     'ckeditor_uploader',
+    'rest_framework',
+    'djoser',
 
     # My Apps
     'account.apps.AccountConfig',
@@ -133,3 +135,25 @@ CKEDITOR_CONFIGS = {
 
     }
 }
+
+# JWT Config
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
+
+# Djoser Coonfig
+DJOSER = {
+    "USER_CREATE_PASSWORD_RETYPE": True,  # add re_password in create user
+}
+
+# DRF Config
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+AUTHENTICATION_BACKENDS = (
+    # "django.contrib.auth.backends.ModelBackend",
+    "account.backends.EmailPhoneAuthenticationBackend",
+)
