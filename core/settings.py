@@ -1,6 +1,7 @@
 import os
 import environ
 from pathlib import Path
+from datetime import timedelta
 
 # config environ
 env = environ.Env()
@@ -136,24 +137,20 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-# JWT Config
-SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
-}
-
-# Djoser Coonfig
-DJOSER = {
-    "USER_CREATE_PASSWORD_RETYPE": True,  # add re_password in create user
-}
-
-# DRF Config
+# Config DRF
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
 
-AUTHENTICATION_BACKENDS = (
-    # "django.contrib.auth.backends.ModelBackend",
-    "account.backends.EmailPhoneAuthenticationBackend",
-)
+# Config JWT
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+# Config Djoser
+DJOSER = {
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+}

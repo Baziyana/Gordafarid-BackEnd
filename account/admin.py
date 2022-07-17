@@ -13,7 +13,7 @@ class CustomUserAdmin(UserAdmin):
         (
             ('اطلاعات عمومی'),
             {'fields': (
-                'username', 'avatar', 'full_name', 'description', 'last_login', 'date_joined')}),
+                'username', 'avatar', 'full_name', 'description', 'last_login', 'date_joined','password')}),
 
         (
             ('راه ارتباطی'),
