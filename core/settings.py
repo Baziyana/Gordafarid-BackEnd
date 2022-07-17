@@ -1,6 +1,7 @@
 import os
 import environ
 from pathlib import Path
+from datetime import timedelta
 
 # config environ
 env = environ.Env()
@@ -26,9 +27,12 @@ INSTALLED_APPS = [
     # 3rd Party
     'ckeditor',
     'ckeditor_uploader',
+    'rest_framework',
+    'djoser',
 
     # My Apps
     'account.apps.AccountConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -131,4 +135,22 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Custom',
 
     }
+}
+
+# Config DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+# Config JWT
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+# Config Djoser
+DJOSER = {
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
 }
