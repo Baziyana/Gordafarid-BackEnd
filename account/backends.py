@@ -8,19 +8,18 @@ User = get_user_model()
 class EmailPhoneAuthenticationBackend(object):
     """ login with email or phone_number """
 
-    def authenticate(self, request, username=None, password=None):
+    def authenticate(self, request, email_or_phone=None, password=None):
         try:
             user = User.objects.get(
-                Q(phone_number=username) |
-                Q(email=username)
+                Q(email=email_or_phone) |
+                Q(phone=email_or_phone)
             )
 
+            if user and user.check_password(password):
+                return user
+            return None
         except User.DoesNotExist:
             return None
-
-        if user and check_password(password, user.password):
-            return user
-        return None
 
     def get_user(self, user_id):
         try:

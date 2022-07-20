@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     # My Apps
     'account.apps.AccountConfig',
     'blog.apps.BlogConfig',
+    'main.apps.MainConfig',
 ]
 
 MIDDLEWARE = [
@@ -146,11 +147,22 @@ REST_FRAMEWORK = {
 
 # Config JWT
 SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("JWT",),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
+
 # Config Djoser
 DJOSER = {
     "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "LOGIN_FIELD": "email",
 }
+
+AUTHENTICATION_BACKENDS = (
+    # 'account.backends.EmailPhoneAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True

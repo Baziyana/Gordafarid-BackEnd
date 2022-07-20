@@ -10,11 +10,11 @@ class CustomUserManager(UserManager):
         if not email:
             raise ValueError('Users must have an email address.')
         if not phone_number:
-            raise ValueError('Users must have an phone number address.')
+            raise ValueError('Users must have an phone number.')
 
         email = self.normalize_email(email)
         user = self.model(email=email, phone_number=phone_number, **extra_fields)
-        user.set_password(make_password(password))
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
