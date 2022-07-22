@@ -18,7 +18,8 @@ class Post(General, SEO):
         verbose_name_plural = 'مقالات'
 
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='posts', verbose_name='نویسنده')
-    tag = models.ForeignKey("BlogTag", on_delete=models.CASCADE, related_name='posts', verbose_name='برچسب', null=True)
+    tag = models.ForeignKey("BlogTag", on_delete=models.CASCADE, related_name='posts', verbose_name='برچسب', null=True,
+                            blank=True)
     category = models.ForeignKey("BlogCategory", on_delete=models.CASCADE, related_name='posts',
                                  verbose_name='دسته بندی', null=True)
 
@@ -45,20 +46,24 @@ def post_pre_save_receiver(sender, instance, *args, **kwargs):
 # /////////////////////////////////////// Post Tag \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class BlogTag(General, BassCategory, SEO):
     class Meta:
-        verbose_name = ''
-        verbose_name_plural = ''
+        verbose_name = 'برچسب'
+        verbose_name_plural = 'برچسب ها'
 
-    tag = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name='tags', verbose_name='برچسب')
+    sub_tag = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='tags',
+                                verbose_name='برچسب')
 
 
 # /////////////////////////////////////// Post Category \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class BlogCategory(General, BassCategory, SEO):
     class Meta:
-        verbose_name = ''
-        verbose_name_plural = ''
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
 
-    category = models.ForeignKey('self', null=True, on_delete=models.CASCADE, related_name='categories',
-                                 verbose_name='دسته بندی')
+    sub_category = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='categories',
+                                     verbose_name='دسته بندی')
+
+    def __str__(self):
+        return self.title
 
 
 # /////////////////////////////////////// Post Comment \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

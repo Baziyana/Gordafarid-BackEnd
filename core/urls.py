@@ -5,8 +5,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/account/', include('account.urls')),  # account app URL
     path('ckeditor/', include('ckeditor_uploader.urls')),  # ckeditor uploader
+
+    path('api/account/', include('account.urls')),  # account app URL
+    path('api/blog/', include('blog.urls')),  # blog app URL
 
 ]
 
