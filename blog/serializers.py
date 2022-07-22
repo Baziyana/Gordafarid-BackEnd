@@ -21,3 +21,20 @@ class PostListSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'slug', 'author', 'category', 'thumbnail_image', 'thumbnail_alt', 'status',
                   'created', 'updated', "meta_title", "meta_description", "canonical_check", "canonical_url",
                   "schema_json"]
+
+
+class PostDetailSerializer(PostListSerializer):
+    tag = serializers.SerializerMethodField()
+
+    def get_tag(self, obj):
+        if obj.tag is not None:
+            context = {
+                'tag': obj.tag.title,
+                'sub_tag': obj.tag.sub_tag
+            }
+            return context
+        return None
+
+    class Meta:
+        model = Post
+        fields = ['content', 'tag'] + PostListSerializer.Meta.fields
